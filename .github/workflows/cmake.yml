@@ -83,7 +83,7 @@ jobs:
       - name: Run executable and capture output
         id: run_executable
         run: |
-          output=$(./build/msc_ver)  # Replace with your executable
+          $output=$(./build/Release/msc_ver)  # Replace with your executable
           echo "Output from executable: $output"
           echo "::set-output name=exec_output::$output"
 
