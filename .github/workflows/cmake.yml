@@ -14,7 +14,7 @@ on:
 
 jobs:
   build_wheels:
-    name: Build wheel ${{ matrix.python }}-${{ matrix.buildplat[1] }}
+    name: Build ${{ matrix.buildplat[0] }}-${{ matrix.python[0] }}-${{ matrix.buildplat[1] }}
     runs-on: ${{ matrix.buildplat[0] }}
     strategy:
       # Ensure that a wheel builder finishes even if another fails
@@ -79,3 +79,16 @@ jobs:
 
       - name: Test
         run: ctest --test-dir build -C Release -V
+
+      - name: Run executable and capture output
+        id: run_executable
+        run: |
+          output=$(./build/msc_ver)  # Replace with your executable
+          echo "Output from executable: $output"
+          echo "::set-output name=exec_output::$output"
+
+      - name: ${{ steps.run_executable.outputs.exec_output }}
+        env:
+          EXEC_OUTPUT: ${{ steps.run_executable.outputs.exec_output }}
+        run: |
+          echo "Step name: $EXEC_OUTPUT"
