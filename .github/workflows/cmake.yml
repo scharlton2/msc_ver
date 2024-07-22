@@ -73,6 +73,7 @@ jobs:
 
       - name: Configure
         env:
+          CMAKE_GENERATOR: Visual Studio 16 2019
           CMAKE_GENERATOR_TOOLSET: ${{ matrix.python[1] }}
           CMAKE_GENERATOR_PLATFORM: ${{ matrix.buildplat[1] }}
         run: cmake -L -B build
